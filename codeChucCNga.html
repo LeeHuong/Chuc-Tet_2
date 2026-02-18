@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Chúc mừng năm mới chị ạ 🤑</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Dosis;
+  text-align:center;
+  background:url('https://i.ibb.co/k2M9Tnr4/1.jpg') no-repeat center center fixed;
+  background-size: contain;
+  background-color:#ff0000;
+  overflow-x:hidden;
+  min-height:100vh;
+}
+
+/* nút bấm */
+#clickText{
+  margin-top:120px;
+  font-size:32px;
+  color:#FFD700;
+  cursor:pointer;
+  text-shadow:0 0 20px #FFA500, 0 0 40px #FF0000;
+  position:relative;
+  z-index:10;
+  background:rgba(0,0,0,0.3);
+  padding:15px 30px;
+  border-radius:50px;
+  display:inline-block;
+  border:2px solid #FFD700;
+  transition:0.3s;
+}
+
+#clickText:hover {
+  transform:scale(1.1);
+  background:rgba(255,215,0,0.2);
+}
+
+/* popup nền */
+.popup{
+  display:none;
+  position:fixed;
+  top:0; left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.7);
+  z-index:1000;
+}
+
+/* hộp lời chúc */
+.popup-content{
+  width:500px;
+  margin:8% auto;
+  border-radius:20px;
+  animation:reveal 0.6s ease;
+  position:relative;
+  z-index:1001;
+  border:3px solid #FFD700;
+  box-shadow:0 0 50px rgba(255,215,0,0.5);
+  overflow:hidden;
+
+  /* nền kính mờ đẹp */
+  backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.15);
+}
+
+/* hiệu ứng mở màn (Reveal curtain style) */
+@keyframes reveal{
+  from{
+    clip-path: inset(0 0 100% 0);
+  }
+  to{
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+
+/* Ảnh nền popup - dùng thẻ img thực tế */
+.popup-background-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0.5; /* Sửa từ 5 thành 0.5 */
+  z-index: 0;
+}
+
+/* Nội dung popup */
+.popup-inner {
+  position: relative;
+  padding: 25px;
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 20px;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@keyframes zoom{
+  from{transform:scale(.3);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+.message{
+  font-size:20px;
+  font-weight:bold;
+  color:#d40000;
+  line-height:1.6;
+  text-shadow: 1px 1px 2px white;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.close{
+  position:absolute;
+  right:15px;
+  top:10px;
+  font-size:28px;
+  cursor:pointer;
+  color:red;
+  transition:0.3s;
+  background: white;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  z-index: 10;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.close:hover {
+  transform:scale(1.2);
+  background: #ffeeee;
+}
+
+/* Container cho hiệu ứng hình ảnh Tết */
+#tet-effects {
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  z-index:1;
+}
+
+.tet-item {
+  position:absolute;
+  pointer-events:none;
+  animation: float linear infinite;
+  opacity:0;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(255,215,0,0.8);
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity:0.9;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity:0;
+  }
+}
+
+/* Thông báo tương tác */
+#interactHint {
+  position:fixed;
+  bottom:20px;
+  left:0;
+  right:0;
+  color:#FFD700;
+  font-size:14px;
+  z-index:10;
+  text-shadow:0 0 10px red;
+}
+
+/* Nút điều khiển âm thanh */
+#soundToggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #FFD700;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 0 20px gold;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+}
+
+#soundToggle:hover {
+  transform: scale(1.1);
+}
+</style>
+</head>
+
+<body>
+
+<!-- Nút bật/tắt âm thanh -->
+<div id="soundToggle">🔊</div>
+
+<h2 id="clickText">🧧 Nhấp vào để nhận lời chúc 🧧</h2>
+<div id="interactHint">(HAPPY NEW YEAR!! 🐎 Mừng xuân Bính Ngọ 2026 🐎 )</div>
+
+<div id="popup" class="popup">
+  <div class="popup-content">
+    <!-- Dùng thẻ IMG thay vì background-image -->
+    <img class="popup-background-img" id="popup-bg-img" src="" alt="Nền Tết">
+    
+    <!-- Nội dung chính -->
+    <div class="popup-inner">
+      <span class="close" onclick="closePopup()">×</span>
+
+      <h2 style="color:#FF4500;">🎆 CHÚC MỪNG NĂM MỚI 🎆</h2>
+
+      <div class="message">
+      Chúc chị và gia đình năm mới sức khỏe, may mắn,<br>
+      thành công và hạnh phúc ❤️<br><br>
+      <span style="color:#FF8800; font-size:24px;">
+      An khang thịnh vượng — Phát tài phát lộc !!!
+      </span>
+      </div>
+      
+      <div style="margin-top:20px; font-size:16px; color:#333;">
+        🐎 Mừng xuân Bính Ngọ 2026 🐎
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NHẠC NỀN TẾT - TỪ GOOGLE DRIVE CỦA BẠN -->
+<audio id="music" loop preload="auto" muted>
+  <source src="https://raw.githubusercontent.com/LeeHuong/Chuc-Tet/refs/heads/main/T%E1%BA%BFt%20B%C3%ACnh%20An%20(Remix).mp3">
+  
+<!-- TIẾNG PHÁO - LINK BẠN ĐÃ CÓ -->
+<audio id="boom" preload="auto">
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/09/audio_f59d3f4a98.mp3?filename=freesound_community-fireworks-29629.mp3" type="audio/mpeg">
+<!-- Hiệu ứng hình ảnh Tết -->
+<div id="tet-effects"></div>
+
+<script>
+let started = false;
+let soundEnabled = true;
+
+// 🟢🟢🟢 THAY LINK IMGUR CỦA BẠN VÀO ĐÂY 🟢🟢🟢
+const imageLink = "https://i.ibb.co/k2M9Tnr4/1.jpg"; // Thay bằng link Imgur thật của bạn
+
+// Gán ảnh nền cho popup
+document.getElementById('popup-bg-img').src = imageLink;
+
+// Mảng các biểu tượng Tết
+const tetSymbols = ['🌸', '🌼', '🧧', '🏮', '✨', '💰', '🍊', '💴', '🤑', '🎇', '🧨', '🎋'];
+
+// Hàm phát nhạc
+function playMusic() {
+  if (!soundEnabled) return;
+  
+  let music = document.getElementById("music");
+  music.muted = false;
+  music.volume = 0.5;
+  
+  let playPromise = music.play();
+  
+  if (playPromise !== undefined) {
+    playPromise.catch(error => {
+      console.log("❌ Không thể phát nhạc:", error);
+    });
+  }
+}
+
+// Hàm phát tiếng pháo
+function playFirecrackerSound() {
+  if (!soundEnabled) return;
+  
+  let boom = document.getElementById("boom");
+  boom.volume = 0.3;
+  boom.currentTime = 0;
+  
+  let playPromise = boom.play();
+  
+  if (playPromise !== undefined) {
+    playPromise.catch(error => {
+      console.log("❌ Không thể phát tiếng pháo:", error);
+    });
+  }
+}
+
+// Xử lý nút bật/tắt âm thanh
+document.getElementById('soundToggle').onclick = function() {
+  soundEnabled = !soundEnabled;
+  let music = document.getElementById("music");
+  
+  if (soundEnabled) {
+    this.innerHTML = '🔊';
+    this.style.background = '#FFD700';
+    music.muted = false;
+    music.play().catch(e => console.log("Chưa thể phát nhạc"));
+  } else {
+    this.innerHTML = '🔇';
+    this.style.background = '#ccc';
+    music.pause();
+  }
+};
+
+// Mở popup
+document.getElementById("clickText").onclick = function() {
+  document.getElementById("popup").style.display = "block";
+  
+  // Bỏ mute và phát nhạc
+  let music = document.getElementById("music");
+  music.muted = false;
+  
+  if (!started) {
+    playMusic();
+    startTetEffects();
+    started = true;
+  }
+  
+  // Phát tiếng pháo đặc biệt khi mở popup
+  setTimeout(() => {
+    playFirecrackerSound();
+  }, 100);
+};
+
+// Đóng popup
+function closePopup() {
+  document.getElementById("popup").style.display = "none";
+  // Không dừng nhạc khi đóng popup
+}
+
+// Sự kiện click toàn trang để kích hoạt âm thanh
+document.body.addEventListener('click', function() {
+  let music = document.getElementById("music");
+  music.muted = false;
+  
+  if (!started) {
+    playMusic();
+  }
+});
+
+/* HIỆU ỨNG HÌNH ẢNH TẾT */
+const tetContainer = document.getElementById('tet-effects');
+
+// Hàm tạo hiệu ứng rơi
+function createTetEffect() {
+  const item = document.createElement('div');
+  item.className = 'tet-item';
+  
+  const randomSymbol = tetSymbols[Math.floor(Math.random() * tetSymbols.length)];
+  item.textContent = randomSymbol;
+  item.style.fontSize = Math.random() * 30 + 20 + 'px';
+  
+  const left = Math.random() * 100;
+  item.style.left = left + '%';
+  
+  const duration = Math.random() * 4 + 3;
+  item.style.animationDuration = duration + 's';
+  
+  const delay = Math.random() * 2;
+  item.style.animationDelay = delay + 's';
+  
+  item.style.color = `hsl(${Math.random() * 60 + 30}, 90%, 60%)`;
+  item.style.textShadow = '0 0 10px currentColor';
+  
+  tetContainer.appendChild(item);
+  
+  setTimeout(() => {
+    if (item.parentNode) {
+      item.remove();
+    }
+  }, (duration + delay) * 1000);
+}
+
+// Bắt đầu hiệu ứng Tết
+function startTetEffects() {
+  setInterval(() => {
+    for (let i = 0; i < 3; i++) {
+      setTimeout(() => {
+        createTetEffect();
+      }, i * 100);
+    }
+    
+    if (Math.random() > 0.7) {
+      playFirecrackerSound();
+    }
+  }, 300);
+}
+
+// Hiệu ứng đặc biệt khi mở popup
+function createSpecialEffect() {
+  for (let i = 0; i < 15; i++) {
+    setTimeout(() => {
+      createTetEffect();
+    }, i * 50);
+  }
+}
+
+// Kiểm tra ảnh nền
+console.log("Ảnh nền popup:", imageLink);
+</script>
+
+</body>
+</html>
